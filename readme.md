@@ -2,6 +2,8 @@
 
 This backend is a FastAPI-based service for moderating images and detecting harmful content using deep learning models. It provides authentication, image analysis, and usage logging, and stores data in MongoDB.
 
+---
+
 ## Features
 
 - **Image Moderation:** Upload images to detect harmful content using a transformer-based model.
@@ -10,11 +12,14 @@ This backend is a FastAPI-based service for moderating images and detecting harm
 - **Admin Endpoints:** Manage tokens (create, list, delete).
 - **Health Check:** Simple endpoint to verify service status.
 
+---
+
 ## Project Structure
 
 ```
 backend/
   requirements.txt
+  Dockerfile
   app/
     main.py              # FastAPI app, endpoints, and startup logic
     auth_service.py      # AuthService class for token validation and usage logging
@@ -22,7 +27,10 @@ backend/
     database/
       models.py          # Pydantic models for tokens, usage, moderation results
       mongodb.py         # MongoDB connection and helpers
+docker-compose.yml
 ```
+
+---
 
 ## Dependencies
 
@@ -41,7 +49,8 @@ All dependencies are listed in [`backend/requirements.txt`](backend/requirements
 - **python-dotenv**: Environment variable management
 - **transformers**: HuggingFace Transformers for image classification
 - **torchvision**: PyTorch vision utilities
-- **tensor**: (Likely a typo or placeholder; PyTorch is required for transformers)
+
+---
 
 ## How It Works
 
@@ -70,7 +79,20 @@ All dependencies are listed in [`backend/requirements.txt`](backend/requirements
 - `DELETE /auth/tokens/{token}`: Delete a token (admin only).
 - `GET /health`: Health check endpoint.
 
+---
+
+## Downloading the Project
+
+Clone this repository (including submodules) using:
+```sh
+git clone --recurse-submodules https://github.com/leohum69/Image-Moderation-FastAPI
+```
+---
+
+
 ## Running the Backend
+
+### Local Development
 
 1. **Install dependencies:**
    ```sh
@@ -82,12 +104,35 @@ All dependencies are listed in [`backend/requirements.txt`](backend/requirements
 
 3. **Run the server:**
    ```sh
-   python main.py
+   python app/main.py
    ```
+
+### Using Docker Compose
+
+You can run the backend, frontend, and MongoDB together using Docker Compose.
+
+1. **Build and start all services:**
+   ```sh
+   docker-compose up --build
+   ```
+
+   - The backend will be available at `http://localhost:7000`
+   - The frontend (if present) will be at `http://localhost:3000`
+   - MongoDB will be available at port `27018` on your host
+
+2. **Stop the services:**
+   ```sh
+   docker-compose down
+   ```
+
+---
 
 ## Environment Variables
 
 - Configure MongoDB connection and secrets as needed (see `.env` usage in code).
+- When using Docker Compose, environment variables are set in the `docker-compose.yml` file.
+
+---
 
 ## License
 
