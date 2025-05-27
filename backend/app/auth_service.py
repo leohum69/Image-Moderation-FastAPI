@@ -17,8 +17,12 @@ class AuthService:
         )
         
         collection = await get_tokens_collection()
-        # Use dict() instead of model_dump for Pydantic v1 compatibility
-        result = await collection.insert_one(token.dict(by_alias=True))
+        # Convert to dict and manually remove _id if it's None
+        token_dict = token.dict(by_alias=True)
+        if token_dict.get('_id') is None:
+            token_dict.pop('_id', None)
+        
+        result = await collection.insert_one(token_dict)
         token.id = result.inserted_id
         
         return token
@@ -76,7 +80,10 @@ class AuthService:
             endpoint=endpoint,
             timestamp=datetime.utcnow()
         )
-        
+
         collection = await get_usages_collection()
-        # Use dict() instead of model_dump for Pydantic v1 compatibility
-        await collection.insert_one(usage.dict(by_alias=True))
+        usage_dict = usage.dict(by_alias=True)
+        if usage_dict.get('_id') is None:
+            usage_dict.pop('_id', None)
+        
+        await collection.insert_one(usage_dict)
