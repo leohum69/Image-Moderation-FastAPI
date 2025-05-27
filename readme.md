@@ -91,7 +91,7 @@ All dependencies are listed in [`backend/requirements.txt`](backend/requirements
 
 ## License
 
-MIT License. See [LICENSE](../LICENSE) for details.
+MIT License. See [LICENSE](/LICENSE) for details.
 
 ---
 
