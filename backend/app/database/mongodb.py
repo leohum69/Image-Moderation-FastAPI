@@ -13,7 +13,7 @@ async def get_database():
     """Create database connection"""
     if db.client is None:
         db.client = AsyncIOMotorClient(
-            os.getenv("MONGODB_URI", "mongodb://localhost:27017")
+            os.getenv("MONGODB_URI", "mongodb://localhost:27018") # os.getenv("MONGODB_URI", "mongodb://localhost:27017")
         )
         db.database = db.client[os.getenv("DATABASE_NAME", "image_moderation")]
     
